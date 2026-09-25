@@ -1,8 +1,9 @@
 #include <stdio.h>
+#include <iostream>
 #include "pico/stdlib.h"
 #include "hardware/i2c.h"
 
-#include "PWM.hpp"
+#include "FrequencyGen.hpp"
 
 // I2C defines
 // This example will use I2C0 on GPIO8 (SDA) and GPIO9 (SCL) running at 400KHz.
@@ -15,7 +16,7 @@
 
 int main()
 {
-    // stdio_init_all();
+    stdio_init_all();
 
     // // I2C Initialisation. Using it at 400Khz.
     // i2c_init(I2C_PORT, 400*1000);
@@ -32,20 +33,16 @@ int main()
     // }
 
 
-    PWM::pulseAt(7, 0.5);
-    PWM::pinIsInitialized(7);
-    PWM::init();
-
-    // int LED_PIN = 7;
-    // gpio_init(LED_PIN);
-    // gpio_set_dir(LED_PIN, GPIO_OUT);
+    std::cout << "pin 7 is init:" << FrequencyGen::pinIsInitialized(7) << "\n";
+    FrequencyGen::init();
     
-    // while (true){
-    //     gpio_put(LED_PIN, 1);
-    //     sleep_ms(500);
-    //     gpio_put(LED_PIN, 0);
-    //     sleep_ms(500);
-    // }
+    while (true){        
+        std::cout << "pin 7 is init:" << FrequencyGen::pinIsInitialized(7) << "\n";
+        // FrequencyGen::pulseAt(7, 1);
+        // sleep_ms(2000);
+        FrequencyGen::pulseAt(7, 0.2);
+        sleep_ms(2000);
+    }
     
     return 0;
 }

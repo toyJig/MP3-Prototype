@@ -1,11 +1,11 @@
 #pragma once
-namespace PWM{
-    class PWM_pin {
+namespace FrequencyGen{
+    class Frequency_pin {
         public:
-            int power;
+            double power;
             int pinNumber;
             bool onState {false};
-            PWM_pin(int pinNumber, int power);
+            Frequency_pin(int pinNumber, double power);
     };
     
     void pulseAt(int pinNumber, double power);
