@@ -52,8 +52,8 @@ pico_set_program_name(Mp3-Prototype "Mp3-Prototype")
 pico_set_program_version(Mp3-Prototype "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(Mp3-Prototype 1)
 pico_enable_stdio_usb(Mp3-Prototype 1)
+pico_enable_stdio_uart(Mp3-Prototype 0)
 
 # Add the standard library to the build
 target_link_libraries(Mp3-Prototype

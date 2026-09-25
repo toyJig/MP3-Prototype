@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <iostream>
+#include <random>
 #include "pico/stdlib.h"
 #include "hardware/i2c.h"
 
@@ -32,16 +33,81 @@ int main()
     //     sleep_ms(1000);
     // }
 
-
-    std::cout << "pin 7 is init:" << FrequencyGen::pinIsInitialized(7) << "\n";
+    sleep_ms(3000); // wait for serial monitor
     FrequencyGen::init();
     
-    while (true){        
-        std::cout << "pin 7 is init:" << FrequencyGen::pinIsInitialized(7) << "\n";
-        // FrequencyGen::pulseAt(7, 1);
-        // sleep_ms(2000);
-        FrequencyGen::pulseAt(7, 0.2);
-        sleep_ms(2000);
+    //random generator
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    static std::uniform_real_distribution<double> dis(0.0, 1.0);
+    static std::uniform_real_distribution<double> disHz(27.5, 4186.0);
+
+    
+    while (true){
+        double randomFreq {dis(gen)};
+        double randomHz {disHz(gen)};
+        std::cout << "random freq:" << randomFreq << std::endl;
+        std::cout << "random Hz:" << randomHz << std::endl;
+        FrequencyGen::pulseAtHz(7, FrequencyGen::E4);
+        sleep_ms(1000);
+        FrequencyGen::pulseAtHz(7, FrequencyGen::D4);
+        sleep_ms(1000);
+        FrequencyGen::pulseAtHz(7, FrequencyGen::C4);
+        sleep_ms(1600);
+        FrequencyGen::pulseAtPercentPower(7,0);
+        sleep_ms(400);
+
+        FrequencyGen::pulseAtHz(7, FrequencyGen::E4);
+        sleep_ms(1000);
+        FrequencyGen::pulseAtHz(7, FrequencyGen::D4);
+        sleep_ms(1000);
+        FrequencyGen::pulseAtHz(7, FrequencyGen::C4);
+        sleep_ms(1600);
+        FrequencyGen::pulseAtPercentPower(7,0);
+        sleep_ms(400);
+
+        FrequencyGen::pulseAtHz(7, FrequencyGen::C4);
+        sleep_ms(400);
+        FrequencyGen::pulseAtPercentPower(7,0);
+        sleep_ms(100);
+        FrequencyGen::pulseAtHz(7, FrequencyGen::C4);
+        sleep_ms(400);
+        FrequencyGen::pulseAtPercentPower(7,0);
+        sleep_ms(100);
+        FrequencyGen::pulseAtHz(7, FrequencyGen::C4);
+        sleep_ms(400);
+        FrequencyGen::pulseAtPercentPower(7,0);
+        sleep_ms(100);
+        FrequencyGen::pulseAtHz(7, FrequencyGen::C4);
+        sleep_ms(400);
+        FrequencyGen::pulseAtPercentPower(7,0);
+        sleep_ms(100);
+
+        FrequencyGen::pulseAtHz(7, FrequencyGen::D4);
+        sleep_ms(400);
+        FrequencyGen::pulseAtPercentPower(7,0);
+        sleep_ms(100);
+        FrequencyGen::pulseAtHz(7, FrequencyGen::D4);
+        sleep_ms(400);
+        FrequencyGen::pulseAtPercentPower(7,0);
+        sleep_ms(100);
+        FrequencyGen::pulseAtHz(7, FrequencyGen::D4);
+        sleep_ms(400);
+        FrequencyGen::pulseAtPercentPower(7,0);
+        sleep_ms(100);
+        FrequencyGen::pulseAtHz(7, FrequencyGen::D4);
+        sleep_ms(400);
+        FrequencyGen::pulseAtPercentPower(7,0);
+        sleep_ms(100);
+
+        FrequencyGen::pulseAtHz(7, FrequencyGen::E4);
+        sleep_ms(1000);
+        FrequencyGen::pulseAtHz(7, FrequencyGen::D4);
+        sleep_ms(1000);
+        FrequencyGen::pulseAtHz(7, FrequencyGen::C4);
+        sleep_ms(1600);
+        FrequencyGen::pulseAtPercentPower(7,0);
+        sleep_ms(1400);
     }
     
     return 0;

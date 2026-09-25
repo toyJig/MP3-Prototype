@@ -10,13 +10,20 @@
 #include "pico/multicore.h"
 namespace FrequencyGen{
     constexpr float MAX_HZ {2.0e4f};
-    constexpr float MIN_HZ {0.0e-5f};
+    constexpr float MIN_HZ {0.0e-8f};
 
     Frequency_pin* pin_info[30];
 
     Frequency_pin::Frequency_pin(int pinNumber, double power) : pinNumber(pinNumber), power(power){}
     
-    void pulseAt(int pinNumber, double power){
+    double HzToPower(double Hz){
+        return Hz/(MAX_HZ-MIN_HZ)-MIN_HZ;
+    }
+    double PowerToHz(double power){
+        return 1/(power * (MAX_HZ - MIN_HZ) + MIN_HZ) * 50000.0f; //mult by 50000 in order to go beyond resonance frequency of 5000hz by 10x                                                                               
+    }
+
+    void pulseAtPercentPower(int pinNumber, double power){
         if (power < 0.0) power = 0.0;
         if (power > 1.0) power = 1.0;
         if (pinNumber < 0 || pinNumber >= 30){
@@ -32,6 +39,23 @@ namespace FrequencyGen{
             freqPin_info->power = power;
         }
     }
+    void pulseAtHz(int pinNumber, double Hz){
+        if (Hz < MIN_HZ) Hz = MIN_HZ;
+        if (Hz > MAX_HZ) Hz = MAX_HZ;
+        if (pinNumber < 0 || pinNumber >= 30){
+            return;
+        }
+ 
+        Frequency_pin* freqPin_info {pin_info[pinNumber]};
+        if (freqPin_info == nullptr) {
+            pin_info[pinNumber] = new Frequency_pin(pinNumber, Hz/(MAX_HZ - MIN_HZ) + MIN_HZ);
+            gpio_init(pinNumber);
+            gpio_set_dir(pinNumber, GPIO_OUT);
+        }else{
+            freqPin_info->power = HzToPower(Hz);
+        }
+    }
+
     
     bool pinIsInitialized(int pinNumber){
         //30 = max pins on board
@@ -52,7 +76,7 @@ namespace FrequencyGen{
                     if (pin == nullptr){ continue; }
                     int pinNumb {pin->pinNumber};
                     elapsedTime[pinNumb] += dt_us;
-                    float halfPinHZ {1/((pin->power) * (MAX_HZ - MIN_HZ) + MIN_HZ) * 500000.0f}; //mult by 500000 to convert to microsec rep by int_32
+                    float halfPinHZ {PowerToHz(pin->power)}; 
                     if (elapsedTime[pinNumb] >= halfPinHZ){
                         elapsedTime[pinNumb] -= halfPinHZ;
                         pin->onState = !(pin->onState);
