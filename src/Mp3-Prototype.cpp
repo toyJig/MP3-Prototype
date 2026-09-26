@@ -64,7 +64,7 @@ int main()
         sleep_ms(1000);
         PWM::pulseAtHz(7, PWM::C4);
         sleep_ms(1600);
-        PWM::pulseAtPercentHz(7,0);
+        PWM::pulseAtPercentMaxHz(7,0);
         sleep_ms(400);
 
         PWM::pulseAtHz(7, PWM::E4);
@@ -73,41 +73,41 @@ int main()
         sleep_ms(1000);
         PWM::pulseAtHz(7, PWM::C4);
         sleep_ms(1600);
-        PWM::pulseAtPercentHz(7,0);
+        PWM::pulseAtPercentMaxHz(7,0);
         sleep_ms(400);
 
         PWM::pulseAtHz(7, PWM::C4);
         sleep_ms(400);
-        PWM::pulseAtPercentHz(7,0);
+        PWM::pulseAtPercentMaxHz(7,0);
         sleep_ms(100);
         PWM::pulseAtHz(7, PWM::C4);
         sleep_ms(400);
-        PWM::pulseAtPercentHz(7,0);
+        PWM::pulseAtPercentMaxHz(7,0);
         sleep_ms(100);
         PWM::pulseAtHz(7, PWM::C4);
         sleep_ms(400);
-        PWM::pulseAtPercentHz(7,0);
+        PWM::pulseAtPercentMaxHz(7,0);
         sleep_ms(100);
         PWM::pulseAtHz(7, PWM::C4);
         sleep_ms(400);
-        PWM::pulseAtPercentHz(7,0);
+        PWM::pulseAtPercentMaxHz(7,0);
         sleep_ms(100);
 
         PWM::pulseAtHz(7, PWM::D4);
         sleep_ms(400);
-        PWM::pulseAtPercentHz(7,0);
+        PWM::pulseAtPercentMaxHz(7,0);
         sleep_ms(100);
         PWM::pulseAtHz(7, PWM::D4);
         sleep_ms(400);
-        PWM::pulseAtPercentHz(7,0);
+        PWM::pulseAtPercentMaxHz(7,0);
         sleep_ms(100);
         PWM::pulseAtHz(7, PWM::D4);
         sleep_ms(400);
-        PWM::pulseAtPercentHz(7,0);
+        PWM::pulseAtPercentMaxHz(7,0);
         sleep_ms(100);
         PWM::pulseAtHz(7, PWM::D4);
         sleep_ms(400);
-        PWM::pulseAtPercentHz(7,0);
+        PWM::pulseAtPercentMaxHz(7,0);
         sleep_ms(100);
 
         PWM::pulseAtHz(7, PWM::E4);
@@ -116,7 +116,7 @@ int main()
         sleep_ms(1000);
         PWM::pulseAtHz(7, PWM::C4);
         sleep_ms(1600);
-        PWM::pulseAtPercentHz(7,0);
+        PWM::pulseAtPercentMaxHz(7,0);
         sleep_ms(1400);
     }
     

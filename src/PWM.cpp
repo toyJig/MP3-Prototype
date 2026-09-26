@@ -1,10 +1,7 @@
 
 #include "PWM.hpp"
 
-#include <stdio.h>
-
 #include "pico/stdlib.h"
-#include "hardware/i2c.h"
 #include "hardware/gpio.h"
 #include "pico/multicore.h"
 namespace PWM{
@@ -16,7 +13,7 @@ namespace PWM{
     PWM_pin::PWM_pin(int pinNumber, double Hz, double onPercent) : pinNumber(pinNumber), Hz(Hz), onPercent(onPercent){}
     PWM_pin::PWM_pin(int pinNumber, double Hz) : pinNumber(pinNumber), Hz(Hz){}
     
-    double percentHzToHz(double percent){
+    double percentMaxHzToHz(double percent){
         return percent * (MAX_HZ - MIN_HZ) + MIN_HZ; //mult by 1e6 in order to convert us to s                                                                               
     }
     
@@ -37,7 +34,7 @@ namespace PWM{
         }
     }
 
-    void pulseAtPercentHz(int pinNumber, double percent, double onPercent){
+    void pulseAtPercentMaxHz(int pinNumber, double percent, double onPercent){
         if (percent < 0.0) percent = 0.0;
         if (percent > 1.0) percent = 1.0;
         if (pinNumber < 0 || pinNumber >= 30){
@@ -45,11 +42,11 @@ namespace PWM{
         }
         PWM_pin* PWM_pin_info {pin_info[pinNumber]};
         if (PWM_pin_info == nullptr) {
-            pin_info[pinNumber] = new PWM_pin(pinNumber, percentHzToHz(percent), onPercent);
+            pin_info[pinNumber] = new PWM_pin(pinNumber, percentMaxHzToHz(percent), onPercent);
             gpio_init(pinNumber);
             gpio_set_dir(pinNumber, GPIO_OUT);
         }else{
-            PWM_pin_info->Hz = percentHzToHz(percent);
+            PWM_pin_info->Hz = percentMaxHzToHz(percent);
             PWM_pin_info->onPercent = onPercent;
         }
     }
