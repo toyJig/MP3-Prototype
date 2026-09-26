@@ -1,0 +1,27 @@
+---
+Language: Cpp
+BasedOnStyle: Google
+AccessModifierOffset: -4
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+BreakConstructorInitializers: BeforeColon
+ColumnLimit: 100
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+Cpp11BracedListStyle: false
+FixNamespaceComments: true
+IncludeBlocks: Preserve
+IndentCaseLabels: false
+IndentRequiresClause: false
+IndentWidth: 4
+NamespaceIndentation: All
+PenaltyBreakAssignment: 21
+RequiresClausePosition: OwnLineWithBrace
+ShortNamespaceLines: 0
+WrapNamespaceBodyWithEmptyLines: Never
+
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterFunction: false
+  AfterControlStatement: Never
+  AfterClass: false
+  BeforeElse: false
