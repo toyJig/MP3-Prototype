@@ -38,6 +38,7 @@ pico_sdk_init()
 file(GLOB SRC_FILES CONFIGURE_DEPENDS 
     "src/*.cpp" 
     "src/*.c" 
+    "include/*.hpp"
 )
 
 # Create the executable using that variable
@@ -45,6 +46,7 @@ add_executable(Mp3-Prototype ${SRC_FILES})
 target_include_directories(Mp3-Prototype PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}
     ${CMAKE_CURRENT_LIST_DIR}/src
+    ${CMAKE_CURRENT_LIST_DIR}/include
 )
 
 
@@ -59,6 +61,8 @@ pico_enable_stdio_uart(Mp3-Prototype 0)
 target_link_libraries(Mp3-Prototype
     pico_stdlib    # add standard libraries
     hardware_i2c #add user requested libraries
+    hardware_spi
+    hardware_adc
     pico_multicore
 )
 
