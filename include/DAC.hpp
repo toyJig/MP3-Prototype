@@ -1,12 +1,12 @@
 #pragma once
 
-#include "pico/stdlib.h"
 #include "hardware/spi.h"
+#include "pico/stdlib.h"
 
 #include <cstdint>
 
-#define SINE_SAMPLES 4096 //2^12
-inline constexpr double two_pi {3.1415926535898*2};
+#define SINE_SAMPLES 4096  // 2^12
+inline constexpr double two_pi{ 3.1415926535898 * 2 };
 
 class DAC_C {
 private:
@@ -17,17 +17,17 @@ private:
     int PIN_CS;
     int PIN_SDI;
     int PIN_SCK;
-    
+
     void fillSineTable();
     void write_to_DAC(const std::uint8_t config, const std::uint16_t data);
 
 public:
-    DAC_C (spi_inst_t* spi, int PIN_CS, int PIN_SDI, int PIN_SCK, double Amplitude);
+    DAC_C(spi_inst_t* spi, int PIN_CS, int PIN_SDI, int PIN_SCK, double Amplitude);
     void generateAC_Wave(double Hz);
     void init();
 };
 
-namespace DAC{
+namespace DAC {
     // notes
     inline constexpr double C4{ 261.63 };
     inline constexpr double Cs4{ 277.18 };
@@ -48,8 +48,10 @@ namespace DAC{
     inline constexpr double B4{ 493.88 };
     inline constexpr double C5{ 523.25 };
 
-    inline constexpr std::uint8_t DAC_config_ON_regA {0b0001'0000};
-    inline constexpr std::uint8_t DAC_config_ON_regB {0b1001'0000};
-    inline constexpr std::uint8_t DAC_config_OFF_regA {0b0000'0000};
-    inline constexpr std::uint8_t DAC_config_OFF_regB {0b1000'0000};
-}
+    inline constexpr std::uint8_t DAC_config_ON_regA{ 0b0001'0000 };
+    inline constexpr std::uint8_t DAC_config_ON_regB{ 0b1001'0000 };
+    inline constexpr std::uint8_t DAC_config_OFF_regA{ 0b0000'0000 };
+    inline constexpr std::uint8_t DAC_config_OFF_regB{ 0b1000'0000 };
+
+    inline constexpr double PEAK_AMP_NO_CLIPPING{ 0.805664062 }; //gives theoretical peak voltage w/o clipping (3.3v)
+}  // namespace DAC
